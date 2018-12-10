@@ -1,0 +1,8 @@
+*~
+.fuse_hidden*
+.Trash-*
+.nfs*
+.idea
+composer.phar
+/vendor/
+composer.lock

@@ -1,0 +1,42 @@
+{
+  "name": "mortola/usda-food-composition",
+  "description": "Community API client for obtaining food nutritional data from USDA Food Composition Databases",
+  "type": "library",
+  "keywords": [
+    "USDA",
+    "ndb.nal.usda.gov",
+    "food composition",
+    "nutrition"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "mortola",
+      "email": "15958009+mortola@users.noreply.github.com"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "guzzlehttp/guzzle": "^6.3",
+    "php-units-of-measure/php-units-of-measure": "^2.1",
+    "symfony/serializer": "^4.2"
+  },
+  "require-dev": {
+    "symplify/easy-coding-standard": "^5.2",
+    "phpunit/phpunit": "^7.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "MOrtola\\UsdaFoodComposition\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MOrtola\\UsdaFoodComposition\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-cs": "vendor/bin/ecs check src tests"
+  }
+}
