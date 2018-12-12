@@ -75,7 +75,9 @@ class FoodNormalizer implements DenormalizerInterface, CacheableSupportsMethodIn
 
         if (isset($dataFood['sources'])) {
             foreach ($dataFood['sources'] as $dataSource) {
-                $food->addSource($this->sourceNormalizer->denormalize($dataSource, Source::class));
+                if ($source = $this->sourceNormalizer->denormalize($dataSource, Source::class)) {
+                    $food->addSource($source);
+                }
             }
         }
 

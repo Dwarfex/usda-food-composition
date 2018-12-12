@@ -60,6 +60,7 @@ abstract class AbstractApi
                 throw new BadRequestException();
             }
         } catch (GuzzleException $e) {
+            throw new UnknownException();
         }
 
         throw new UnknownException();
