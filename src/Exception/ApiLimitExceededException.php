@@ -1,6 +1,6 @@
 <?php
 
-namespace MOrtola\UsdaFoodComposition\Exceptions;
+namespace MOrtola\UsdaFoodComposition\Exception;
 
 final class ApiLimitExceededException extends \Exception implements ApiExceptionInterface
 {

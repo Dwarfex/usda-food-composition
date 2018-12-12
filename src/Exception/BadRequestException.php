@@ -1,6 +1,6 @@
 <?php
 
-namespace MOrtola\UsdaFoodComposition\Exceptions;
+namespace MOrtola\UsdaFoodComposition\Exception;
 
 final class BadRequestException extends \Exception implements ApiExceptionInterface
 {

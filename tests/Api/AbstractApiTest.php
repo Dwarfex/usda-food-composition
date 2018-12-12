@@ -6,10 +6,10 @@ use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use MOrtola\UsdaFoodComposition\Api\FoodApi;
-use MOrtola\UsdaFoodComposition\Exceptions\ApiLimitExceededException;
-use MOrtola\UsdaFoodComposition\Exceptions\BadRequestException;
-use MOrtola\UsdaFoodComposition\Exceptions\InvalidApiKeyException;
-use MOrtola\UsdaFoodComposition\Exceptions\UnknownException;
+use MOrtola\UsdaFoodComposition\Exception\ApiLimitExceededException;
+use MOrtola\UsdaFoodComposition\Exception\BadRequestException;
+use MOrtola\UsdaFoodComposition\Exception\InvalidApiKeyException;
+use MOrtola\UsdaFoodComposition\Exception\UnknownException;
 use PHPUnit\Framework\TestCase;
 
 class AbstractApiTest extends TestCase

@@ -5,11 +5,11 @@ namespace MOrtola\UsdaFoodComposition\Api;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\GuzzleException;
-use MOrtola\UsdaFoodComposition\Exceptions\ApiExceptionInterface;
-use MOrtola\UsdaFoodComposition\Exceptions\ApiLimitExceededException;
-use MOrtola\UsdaFoodComposition\Exceptions\BadRequestException;
-use MOrtola\UsdaFoodComposition\Exceptions\InvalidApiKeyException;
-use MOrtola\UsdaFoodComposition\Exceptions\UnknownException;
+use MOrtola\UsdaFoodComposition\Exception\ApiExceptionInterface;
+use MOrtola\UsdaFoodComposition\Exception\ApiLimitExceededException;
+use MOrtola\UsdaFoodComposition\Exception\BadRequestException;
+use MOrtola\UsdaFoodComposition\Exception\InvalidApiKeyException;
+use MOrtola\UsdaFoodComposition\Exception\UnknownException;
 use Psr\Http\Message\ResponseInterface;
 
 abstract class AbstractApi
