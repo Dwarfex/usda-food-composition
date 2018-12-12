@@ -1,0 +1,129 @@
+{
+  "foods": [
+    {
+      "food": {
+        "sr": "July, 2018",
+        "type": "b",
+        "desc": {
+          "ndbno": "45218781",
+          "name": "SPARKLING WATER BEVERAGE, UPC: 036800403710",
+          "ds": "Label Insight",
+          "manu": "Topco Associates, Inc.",
+          "ru": "ml"
+        },
+        "ing": {
+          "desc": "CARBONATED WATER, NATURAL FLAVOR, CITRIC ACID, POTASSIUM CITRATE, ASPARTAME, POTASSIUM BENZOATE (A PRESERVATIVE), ACESULFAME POTASSIUM, MALIC ACID.",
+          "upd": "07/14/2017"
+        },
+        "nutrients": [
+          {
+            "nutrient_id": "208",
+            "name": "Energy",
+            "derivation": "LCCS",
+            "group": "Proximates",
+            "unit": "kcal",
+            "value": "0",
+            "measures": [
+              {
+                "label": "BOTTLE",
+                "eqv": 500.0,
+                "eunit": "ml",
+                "qty": 1.0,
+                "value": "0"
+              }
+            ]
+          },
+          {
+            "nutrient_id": "203",
+            "name": "Protein",
+            "derivation": "LCCS",
+            "group": "Proximates",
+            "unit": "g",
+            "value": "0.00",
+            "measures": [
+              {
+                "label": "BOTTLE",
+                "eqv": 500.0,
+                "eunit": "ml",
+                "qty": 1.0,
+                "value": "0.00"
+              }
+            ]
+          },
+          {
+            "nutrient_id": "204",
+            "name": "Total lipid (fat)",
+            "derivation": "LCCD",
+            "group": "Proximates",
+            "unit": "g",
+            "value": "0.00",
+            "measures": [
+              {
+                "label": "BOTTLE",
+                "eqv": 500.0,
+                "eunit": "ml",
+                "qty": 1.0,
+                "value": "0.00"
+              }
+            ]
+          },
+          {
+            "nutrient_id": "205",
+            "name": "Carbohydrate, by difference",
+            "derivation": "LCCD",
+            "group": "Proximates",
+            "unit": "g",
+            "value": "0.00",
+            "measures": [
+              {
+                "label": "BOTTLE",
+                "eqv": 500.0,
+                "eunit": "ml",
+                "qty": 1.0,
+                "value": "0.00"
+              }
+            ]
+          },
+          {
+            "nutrient_id": "269",
+            "name": "Sugars, total",
+            "derivation": "LCCS",
+            "group": "Proximates",
+            "unit": "g",
+            "value": "0.00",
+            "measures": [
+              {
+                "label": "BOTTLE",
+                "eqv": 500.0,
+                "eunit": "ml",
+                "qty": 1.0,
+                "value": "0.00"
+              }
+            ]
+          },
+          {
+            "nutrient_id": "307",
+            "name": "Sodium, Na",
+            "derivation": "LCCS",
+            "group": "Minerals",
+            "unit": "mg",
+            "value": "2",
+            "measures": [
+              {
+                "label": "BOTTLE",
+                "eqv": 500.0,
+                "eunit": "ml",
+                "qty": 1.0,
+                "value": "10"
+              }
+            ]
+          }
+        ],
+        "footnotes": []
+      }
+    }
+  ],
+  "count": 1,
+  "notfound": 0,
+  "api": 2.0
+}

@@ -15,6 +15,7 @@
       "email": "15958009+mortola@users.noreply.github.com"
     }
   ],
+  "homepage": "https://github.com/mortola/usda-food-composition",
   "require": {
     "php": "^7.1",
     "guzzlehttp/guzzle": "^6.3",
@@ -37,6 +38,7 @@
   },
   "scripts": {
     "test": "vendor/bin/phpunit",
-    "test-cs": "vendor/bin/ecs check src tests"
+    "test-cs": "vendor/bin/ecs check src tests",
+    "test-coverage": "vendor/bin/phpunit --coverage-html build"
   }
 }

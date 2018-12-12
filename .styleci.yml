@@ -4,6 +4,7 @@ finder:
   path:
     - "src"
     - "tests"
+    - "vendor"
 
 enabled:
   - short_array_syntax
