@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
@@ -38,8 +39,21 @@ class AbstractApiTest extends TestCase
         $liveApi = new FoodApi(
             new Client(['base_uri' => 'https://apinvent.nal.usda.gov'])
         );
-        $this->expectException(UnknownException::class);
+        $this->expectException(ConnectException::class);
         $liveApi->get('invent', 'invent');
+    }
+
+    public function testHttpGetUnknownException()
+    {
+        $this->mockHandler->append(
+            new BadResponseException(
+                'JSON API_KEY_INVALID',
+                new Request('GET', 'invent'),
+                new Response(411)
+            )
+        );
+        $this->expectException(UnknownException::class);
+        $this->api->get('11124', 'invent');
     }
 
     public function testHttpGetWhenInvalidApiKey()

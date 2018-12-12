@@ -10,12 +10,6 @@ use Symfony\Component\Serializer\Serializer;
 
 class FoodApi extends AbstractApi
 {
-    /**
-     * @param string $id
-     * @param string $apiKey
-     * @return Food|null
-     * @throws \GuzzleHttp\Exception\GuzzleException
-     */
     public function get(string $id, string $apiKey): ?Food
     {
         $response = $this->httpGet(
@@ -31,11 +25,6 @@ class FoodApi extends AbstractApi
         return $this->serialize($response, Food::class);
     }
 
-    /**
-     * @param ResponseInterface $response
-     * @param string $class
-     * @return Food|null
-     */
     protected function serialize(ResponseInterface $response, string $class): ?Food
     {
         $serializer = new Serializer([new FoodNormalizer()], [new JsonEncoder()]);

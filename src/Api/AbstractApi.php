@@ -19,57 +19,50 @@ abstract class AbstractApi
      */
     protected $client;
 
-    /**
-     * @param ClientInterface $client
-     */
     public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
 
-    /**
-     * @param string $path
-     * @param array $parameters
-     * @return ResponseInterface
-     * @throws ApiExceptionInterface
-     */
     protected function httpGet(string $path, array $parameters = []): ResponseInterface
     {
         return $this->httpRequest('GET', $path, ['query' => $parameters]);
     }
 
     /**
-     * @param string $method
-     * @param string $path
-     * @param array $parameters
-     * @return ResponseInterface
      * @throws ApiExceptionInterface
+     * @throws GuzzleException
      */
     protected function httpRequest(string $method, string $path, array $parameters = []): ResponseInterface
     {
         try {
-            return $this->client->request($method, $path, $parameters);
+            $response = $this->client->request($method, $path, $parameters);
         } catch (BadResponseException $e) {
-            if (403 === $e->getResponse()->getStatusCode()) {
-                throw new InvalidApiKeyException();
-            }
-            if (429 === $e->getResponse()->getStatusCode()) {
-                throw new ApiLimitExceededException();
-            }
-            if (400 === $e->getResponse()->getStatusCode() || 404 === $e->getResponse()->getStatusCode()) {
-                throw new BadRequestException();
-            }
-        } catch (GuzzleException $e) {
+            $this->handleRequestException($e->getResponse()->getStatusCode());
+        }
+
+        if (!isset($response)) {
             throw new UnknownException();
         }
 
-        throw new UnknownException();
+        return $response;
     }
 
     /**
-     * @param ResponseInterface $response
-     * @param string $class
-     * @return object
+     * @throws ApiExceptionInterface
      */
+    protected function handleRequestException(int $responseStatusCode)
+    {
+        if (403 === $responseStatusCode) {
+            throw new InvalidApiKeyException();
+        }
+        if (429 === $responseStatusCode) {
+            throw new ApiLimitExceededException();
+        }
+        if (400 === $responseStatusCode || 404 === $responseStatusCode) {
+            throw new BadRequestException();
+        }
+    }
+
     abstract protected function serialize(ResponseInterface $response, string $class);
 }

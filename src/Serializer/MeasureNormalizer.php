@@ -16,9 +16,6 @@ class MeasureNormalizer implements DenormalizerInterface, CacheableSupportsMetho
      */
     private $nutrient;
 
-    /**
-     * {@inheritdoc}
-     */
     public function denormalize($data, $class, $format = null, array $context = []): ?Measure
     {
         if (null === $this->nutrient) {
@@ -42,25 +39,16 @@ class MeasureNormalizer implements DenormalizerInterface, CacheableSupportsMetho
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsDenormalization($data, $type, $format = null): bool
     {
         return $type === Measure::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setNutrient(Nutrient $nutrient): void
     {
         $this->nutrient = $nutrient;

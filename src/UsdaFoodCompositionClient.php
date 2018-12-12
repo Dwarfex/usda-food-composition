@@ -13,9 +13,6 @@ class UsdaFoodCompositionClient
      */
     private $client;
 
-    /**
-     * @param array $clientOptions
-     */
     public function __construct(array $clientOptions = [])
     {
         $this->client = new Client(
@@ -23,9 +20,6 @@ class UsdaFoodCompositionClient
         );
     }
 
-    /**
-     * @return FoodApi
-     */
     public function food(): FoodApi
     {
         return new FoodApi($this->client);

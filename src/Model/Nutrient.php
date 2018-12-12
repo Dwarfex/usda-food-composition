@@ -38,13 +38,6 @@ class Nutrient
      */
     private $group;
 
-    /**
-     * @param int $id
-     * @param string $name
-     * @param string $derivation
-     * @param string $group
-     * @param Quantity $quantity
-     */
     public function __construct(int $id, string $name, string $derivation, string $group, Quantity $quantity)
     {
         $this->id = $id;
@@ -56,25 +49,16 @@ class Nutrient
         $this->measures = [];
     }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getDerivation(): string
     {
         return $this->derivation;
@@ -88,9 +72,6 @@ class Nutrient
         return $this->sources;
     }
 
-    /**
-     * @param Source $source
-     */
     public function addSource(Source $source): void
     {
         $this->sources[$source->getId()] = $source;
@@ -104,25 +85,16 @@ class Nutrient
         return $this->measures;
     }
 
-    /**
-     * @param Measure $measure
-     */
     public function addMeasure(Measure $measure): void
     {
         $this->measures[] = $measure;
     }
 
-    /**
-     * @return Quantity
-     */
     public function getQuantity(): Quantity
     {
         return $this->quantity;
     }
 
-    /**
-     * @return string
-     */
     public function getGroup(): string
     {
         return $this->group;

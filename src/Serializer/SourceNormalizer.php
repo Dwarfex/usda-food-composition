@@ -9,50 +9,51 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 class SourceNormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
     /**
-     * {@inheritdoc}
+     * @var Source
      */
+    private $source;
+
     public function denormalize($data, $class, $format = null, array $context = []): ?Source
     {
         if (!isset($data['id'], $data['title'], $data['authors'])) {
             return null;
         }
 
-        $source = new Source($data['id'], $data['title'], $data['authors']);
+        $this->source = new Source($data['id'], $data['title'], $data['authors']);
 
+        $this->setOptionalProperties($data);
+
+        return $this->source;
+    }
+
+    private function setOptionalProperties(array $data)
+    {
         if (!empty($data['vol'])) {
-            $source->setVolume($data['vol']);
+            $this->source->setVolume($data['vol']);
         }
 
         if (!empty($data['iss'])) {
-            $source->setIssue($data['iss']);
+            $this->source->setIssue($data['iss']);
         }
 
         if (!empty($data['year'])) {
-            $source->setPublicationYear($data['year']);
+            $this->source->setPublicationYear($data['year']);
         }
 
         if (!empty($data['start'])) {
-            $source->setStartPage($data['start']);
+            $this->source->setStartPage($data['start']);
         }
 
         if (!empty($data['end'])) {
-            $source->setEndPage($data['end']);
+            $this->source->setEndPage($data['end']);
         }
-
-        return $source;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsDenormalization($data, $type, $format = null): bool
     {
         return $type === Source::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;

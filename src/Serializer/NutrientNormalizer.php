@@ -8,6 +8,7 @@ use MOrtola\UsdaFoodComposition\Model\Nutrient;
 use MOrtola\UsdaFoodComposition\Model\PhysicalQuantity\NutritionalEnergy;
 use MOrtola\UsdaFoodComposition\Model\Quantity;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
+use PhpUnitsOfMeasure\PhysicalQuantityInterface;
 use Symfony\Component\Serializer\Exception\BadMethodCallException;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -24,14 +25,16 @@ class NutrientNormalizer implements DenormalizerInterface, CacheableSupportsMeth
      */
     private $food;
 
+    /**
+     * @var Nutrient
+     */
+    private $nutrient;
+
     public function __construct()
     {
         $this->measureNormalizer = new MeasureNormalizer();
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function denormalize($data, $class, $format = null, array $context = []): ?Nutrient
     {
         if (null === $this->food) {
@@ -42,17 +45,11 @@ class NutrientNormalizer implements DenormalizerInterface, CacheableSupportsMeth
             return null;
         }
 
-        try {
-            if (in_array(intval($data['nutrient_id']), [208, 268], true)) {
-                $quantity = new NutritionalEnergy($data['value'], $data['unit']);
-            } else {
-                $quantity = new Mass($data['value'], Mass::getUnit($data['unit'])->getName());
-            }
-        } catch (\Exception $e) {
+        if (!$quantity = $this->getNutrientPhysicalQuantity($data)) {
             return null;
         }
 
-        $nutrient = new Nutrient(
+        $this->nutrient = new Nutrient(
             $data['nutrient_id'],
             $data['name'],
             $data['derivation'],
@@ -60,45 +57,62 @@ class NutrientNormalizer implements DenormalizerInterface, CacheableSupportsMeth
             new Quantity($quantity)
         );
 
-        if (isset($data['measures'])) {
-            $this->measureNormalizer->setNutrient($nutrient);
+        $this->setNutrientMeasures($data);
+        $this->setNutrientSources($data);
+
+        return $this->nutrient;
+    }
+
+    private function getNutrientPhysicalQuantity(array $data): ?PhysicalQuantityInterface
+    {
+        try {
+            if ($this->isEnergyNutrient(intval($data['nutrient_id']))) {
+                return new NutritionalEnergy($data['value'], $data['unit']);
+            }
+            return new Mass($data['value'], Mass::getUnit($data['unit'])->getName());
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
+    private function isEnergyNutrient(int $id): bool
+    {
+        return in_array($id, [208, 268], true);
+    }
+
+    private function setNutrientMeasures(array $data): void
+    {
+        if (!empty($data['measures'])) {
+            $this->measureNormalizer->setNutrient($this->nutrient);
             foreach ($data['measures'] as $dataMeasure) {
                 if ($measure = $this->measureNormalizer->denormalize($dataMeasure, Measure::class)) {
-                    $nutrient->addMeasure($measure);
+                    $this->nutrient->addMeasure($measure);
                 }
             }
         }
+    }
 
+    private function setNutrientSources(array $data): void
+    {
         if (!empty($data['sourcecode'])) {
             foreach ($data['sourcecode'] as $dataSourceId) {
                 if (isset($this->food->getSources()[$dataSourceId])) {
-                    $nutrient->addSource($this->food->getSources()[$dataSourceId]);
+                    $this->nutrient->addSource($this->food->getSources()[$dataSourceId]);
                 }
             }
         }
-
-        return $nutrient;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function supportsDenormalization($data, $type, $format = null): bool
     {
         return $type === Nutrient::class;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function hasCacheableSupportsMethod(): bool
     {
         return true;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setFood(Food $food): void
     {
         $this->food = $food;
