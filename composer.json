@@ -4,9 +4,10 @@
   "type": "library",
   "keywords": [
     "USDA",
-    "ndb.nal.usda.gov",
-    "food composition",
-    "nutrition"
+    "usda national nutrient database",
+    "nutrition",
+    "nutrients",
+    "food"
   ],
   "license": "MIT",
   "authors": [
