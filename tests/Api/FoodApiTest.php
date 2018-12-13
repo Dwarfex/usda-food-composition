@@ -252,11 +252,11 @@ class FoodApiTest extends TestCase
                 'Beltsville',
                 $source->getVolume()
             );
-            Assert::assertIsNumeric(
-                $source->getId()
+            Assert::assertTrue(
+                is_numeric($source->getId())
             );
-            Assert::assertIsNumeric(
-                $source->getPublicationYear()
+            Assert::assertTrue(
+                is_numeric($source->getPublicationYear())
             );
             Assert::assertEquals(
                 'Nutrient Data Laboratory, ARS, USDA',

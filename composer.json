@@ -19,13 +19,13 @@
   "homepage": "https://github.com/mortola/usda-food-composition",
   "require": {
     "php": "^7.1",
-    "guzzlehttp/guzzle": "^6.3",
+    "guzzlehttp/guzzle": "^6.0",
     "php-units-of-measure/php-units-of-measure": "^2.1",
-    "symfony/serializer": "^4.2"
+    "symfony/serializer": "^4.1"
   },
   "require-dev": {
     "symplify/easy-coding-standard": "^5.2",
-    "phpunit/phpunit": "^7.5"
+    "phpunit/phpunit": "^6.0"
   },
   "autoload": {
     "psr-4": {
