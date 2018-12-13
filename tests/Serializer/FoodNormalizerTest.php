@@ -35,6 +35,12 @@ class FoodNormalizerTest extends TestCase
         ];
 
         Assert::assertNull($this->normalizer->denormalize($sourceAsArray, Food::class));
+
+        $sourceAsArray = [
+            'foods' => [0 => ['food' => []]]
+        ];
+
+        Assert::assertNull($this->normalizer->denormalize($sourceAsArray, Food::class));
     }
 
     public function testHasCacheableSupportsMethod()

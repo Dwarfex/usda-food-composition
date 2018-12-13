@@ -13,20 +13,25 @@ class FoodNormalizer implements DenormalizerInterface, CacheableSupportsMethodIn
 {
     public function denormalize($data, $class, $format = null, array $context = []): ?Food
     {
-        if (!$this->getFoodData($data)) {
+        if (!isset($data['foods'][0]['food'])) {
+            return null;
+        }
+
+        $foodData = $data['foods'][0]['food'];
+
+        if (!isset($foodData['desc'])) {
             return null;
         }
 
         $foodDescriptionNormalizer = new FoodDescriptionNormalizer();
-        $foodDescription = $foodDescriptionNormalizer->denormalize($this->getFoodData($data)['desc'], FoodDescription::class);
-
-        if (!$foodDescription) {
+        if (!$foodDescription = $foodDescriptionNormalizer->denormalize($foodData['desc'], FoodDescription::class)) {
             return null;
         }
 
         $food = new Food($foodDescription);
-        $food = $this->withDenormalizedFoodSources($this->getFoodData($data), $food);
-        return $this->withDenormalizedFoodNutrients($this->getFoodData($data), $food);
+        $food = $this->withDenormalizedFoodSources($foodData, $food);
+
+        return $this->withDenormalizedFoodNutrients($foodData, $food);
     }
 
     private function withDenormalizedFoodNutrients(array $foodData, Food $food): Food
@@ -61,15 +66,6 @@ class FoodNormalizer implements DenormalizerInterface, CacheableSupportsMethodIn
         }
 
         return $food;
-    }
-
-    private function getFoodData(array $data): ?array
-    {
-        if (!isset($data['foods'][0]['food'])) {
-            return null;
-        }
-
-        return $data['foods'][0]['food'];
     }
 
     public function supportsDenormalization($data, $type, $format = null): bool

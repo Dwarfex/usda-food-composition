@@ -28,7 +28,7 @@ class FoodApiTest extends TestCase
 
         $food = $this->foodApi->get('invent', 'invent');
 
-        Assert::assertEmpty($food);
+        Assert::assertNull($food);
     }
 
     public function testGetFoodWithoutNutrients()
