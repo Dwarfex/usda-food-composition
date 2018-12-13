@@ -24,6 +24,9 @@ abstract class AbstractApi
         $this->client = $client;
     }
 
+    /**
+     * @throws GuzzleException
+     */
     protected function httpGet(string $path, array $parameters = []): ResponseInterface
     {
         return $this->httpRequest('GET', $path, ['query' => $parameters]);

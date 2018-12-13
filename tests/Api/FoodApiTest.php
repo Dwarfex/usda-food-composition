@@ -42,42 +42,42 @@ class FoodApiTest extends TestCase
         // Food
         Assert::assertEquals(
             '11124',
-            $food->getId()
+            $food->getDescription()->getId()
         );
         Assert::assertEquals(
             'Carrots, raw',
-            $food->getName()
+            $food->getDescription()->getName()
         );
         Assert::assertEquals(
             'CARROTS,RAW',
-            $food->getShortDescription()
+            $food->getDescription()->getShortDescription()
         );
         Assert::assertEquals(
             'Vegetables and Vegetable Products',
-            $food->getFoodGroup()
+            $food->getDescription()->getFoodGroup()
         );
         Assert::assertEquals(
             'Daucus carota',
-            $food->getScientificName()
+            $food->getDescription()->getScientificName()
         );
         Assert::assertEquals(
             6.25,
-            $food->getNitrogenToProteinConversionFactor()
+            $food->getDescription()->getNitrogenToProteinConversionFactor()
         );
         Assert::assertEquals(
             3.84,
-            $food->getCarbohydrateFactor()
+            $food->getDescription()->getCarbohydrateFactor()
         );
         Assert::assertEquals(
             8.37,
-            $food->getFatFactor()
+            $food->getDescription()->getFatFactor()
         );
         Assert::assertEquals(
             2.78,
-            $food->getProteinFactor()
+            $food->getDescription()->getProteinFactor()
         );
 
-        Assert::assertNull($food->getCommercialName());
+        Assert::assertNull($food->getDescription()->getCommercialName());
         Assert::assertNotEmpty($food->getSources());
 
         // Cholesterol
@@ -130,20 +130,20 @@ class FoodApiTest extends TestCase
         // Food
         Assert::assertEquals(
             '45218781',
-            $food->getId()
+            $food->getDescription()->getId()
         );
         Assert::assertEquals(
             'SPARKLING WATER BEVERAGE, UPC: 036800403710',
-            $food->getName()
+            $food->getDescription()->getName()
         );
-        Assert::assertNull($food->getFoodGroup());
-        Assert::assertNull($food->getScientificName());
-        Assert::assertNull($food->getShortDescription());
-        Assert::assertNull($food->getCommercialName());
-        Assert::assertNull($food->getNitrogenToProteinConversionFactor());
-        Assert::assertNull($food->getCarbohydrateFactor());
-        Assert::assertNull($food->getFatFactor());
-        Assert::assertNull($food->getProteinFactor());
+        Assert::assertNull($food->getDescription()->getFoodGroup());
+        Assert::assertNull($food->getDescription()->getScientificName());
+        Assert::assertNull($food->getDescription()->getShortDescription());
+        Assert::assertNull($food->getDescription()->getCommercialName());
+        Assert::assertNull($food->getDescription()->getNitrogenToProteinConversionFactor());
+        Assert::assertNull($food->getDescription()->getCarbohydrateFactor());
+        Assert::assertNull($food->getDescription()->getFatFactor());
+        Assert::assertNull($food->getDescription()->getProteinFactor());
         Assert::assertEmpty($food->getSources());
 
         // Cholesterol
@@ -161,31 +161,31 @@ class FoodApiTest extends TestCase
         // Food
         Assert::assertEquals(
             '45156252',
-            $food->getId()
+            $food->getDescription()->getId()
         );
         Assert::assertEquals(
             'ABBA-ZABA, SNACK SIZE BITES CANDY, UPC: 070602609000',
-            $food->getName()
+            $food->getDescription()->getName()
         );
         Assert::assertEquals(
             'Label Insight',
-            $food->getDatabaseSource()
+            $food->getDescription()->getDatabaseSource()
         );
         Assert::assertEquals(
             'Annabelle Candy Co., Inc.',
-            $food->getManufacturerName()
+            $food->getDescription()->getManufacturerName()
         );
         Assert::assertEquals(
             'family style, applebees',
-            $food->getCommercialName()
+            $food->getDescription()->getCommercialName()
         );
-        Assert::assertNull($food->getFoodGroup());
-        Assert::assertNull($food->getScientificName());
-        Assert::assertNull($food->getShortDescription());
-        Assert::assertNull($food->getNitrogenToProteinConversionFactor());
-        Assert::assertNull($food->getCarbohydrateFactor());
-        Assert::assertNull($food->getFatFactor());
-        Assert::assertNull($food->getProteinFactor());
+        Assert::assertNull($food->getDescription()->getFoodGroup());
+        Assert::assertNull($food->getDescription()->getScientificName());
+        Assert::assertNull($food->getDescription()->getShortDescription());
+        Assert::assertNull($food->getDescription()->getNitrogenToProteinConversionFactor());
+        Assert::assertNull($food->getDescription()->getCarbohydrateFactor());
+        Assert::assertNull($food->getDescription()->getFatFactor());
+        Assert::assertNull($food->getDescription()->getProteinFactor());
         Assert::assertEmpty($food->getSources());
 
         // Cholesterol
@@ -203,31 +203,31 @@ class FoodApiTest extends TestCase
         // Food
         Assert::assertEquals(
             '01009',
-            $food->getId()
+            $food->getDescription()->getId()
         );
         Assert::assertEquals(
             'Cheese, cheddar (Includes foods for USDA\'s Food Distribution Program)',
-            $food->getName()
+            $food->getDescription()->getName()
         );
         Assert::assertEquals(
             'CHEESE,CHEDDAR',
-            $food->getShortDescription()
+            $food->getDescription()->getShortDescription()
         );
         Assert::assertEquals(
             'Standard Reference',
-            $food->getDatabaseSource()
+            $food->getDescription()->getDatabaseSource()
         );
         Assert::assertEquals(
             'Dairy and Egg Products',
-            $food->getFoodGroup()
+            $food->getDescription()->getFoodGroup()
         );
-        Assert::assertNull($food->getManufacturerName());
-        Assert::assertNull($food->getScientificName());
-        Assert::assertNull($food->getCommercialName());
-        Assert::assertNull($food->getNitrogenToProteinConversionFactor());
-        Assert::assertNull($food->getCarbohydrateFactor());
-        Assert::assertNull($food->getFatFactor());
-        Assert::assertNull($food->getProteinFactor());
+        Assert::assertNull($food->getDescription()->getManufacturerName());
+        Assert::assertNull($food->getDescription()->getScientificName());
+        Assert::assertNull($food->getDescription()->getCommercialName());
+        Assert::assertNull($food->getDescription()->getNitrogenToProteinConversionFactor());
+        Assert::assertNull($food->getDescription()->getCarbohydrateFactor());
+        Assert::assertNull($food->getDescription()->getFatFactor());
+        Assert::assertNull($food->getDescription()->getProteinFactor());
 
         // General sources
         Assert::assertNotEmpty($food->getSources());

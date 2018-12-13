@@ -25,8 +25,8 @@ $usdaFoodCompositionClient = new UsdaFoodCompositionClient();
 $food = $usdaFoodCompositionClient->food()->get('11124','api_key');
 
 if($food){
-    echo $food->getName(); // "Carrots, raw"
-    echo $food->getFoodGroup(); // "Vegetables and Vegetable Products"
+    echo $food->getDescription()->getName(); // "Carrots, raw"
+    echo $food->getDescription()->getFoodGroup(); // "Vegetables and Vegetable Products"
     echo $food->getFat()->getQuantity()->toUnit('g'); // 0.24
     echo $food->getFat()->getQuantity()->toUnit('mg'); // 240
     

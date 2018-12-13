@@ -3,6 +3,7 @@
 namespace MOrtola\UsdaFoodComposition\Serializer;
 
 use MOrtola\UsdaFoodComposition\Model\Food;
+use MOrtola\UsdaFoodComposition\Model\FoodDescription;
 use MOrtola\UsdaFoodComposition\Model\Nutrient;
 use MOrtola\UsdaFoodComposition\Model\Source;
 use Symfony\Component\Serializer\Normalizer\CacheableSupportsMethodInterface;
@@ -42,12 +43,14 @@ class FoodNormalizer implements DenormalizerInterface, CacheableSupportsMethodIn
         }
 
         $this->food = new Food(
-            $this->getFoodData($data)['desc']['ndbno'],
-            $this->getFoodData($data)['desc']['name'],
-            $this->getFoodData($data)['desc']['ds']
+            new FoodDescription(
+                $this->getFoodData($data)['desc']['ndbno'],
+                $this->getFoodData($data)['desc']['name'],
+                $this->getFoodData($data)['desc']['ds']
+            )
         );
 
-        $this->setOptionalProperties($data);
+        $this->setDescription($data);
         $this->setFoodSources($data);
         $this->setFoodNutrients($data);
 
@@ -77,36 +80,36 @@ class FoodNormalizer implements DenormalizerInterface, CacheableSupportsMethodIn
         }
     }
 
-    private function setOptionalProperties(array $data): void
+    private function setDescription(array $data): void
     {
         if (!empty($this->getFoodData($data)['desc']['sd'])) {
-            $this->food->setShortDescription($this->getFoodData($data)['desc']['sd']);
+            $this->food->getDescription()->setShortDescription($this->getFoodData($data)['desc']['sd']);
         }
 
         if (!empty($this->getFoodData($data)['desc']['fg'])) {
-            $this->food->setFoodGroup($this->getFoodData($data)['desc']['fg']);
+            $this->food->getDescription()->setFoodGroup($this->getFoodData($data)['desc']['fg']);
         }
 
         if (!empty($this->getFoodData($data)['desc']['sn'])) {
-            $this->food->setScientificName($this->getFoodData($data)['desc']['sn']);
+            $this->food->getDescription()->setScientificName($this->getFoodData($data)['desc']['sn']);
         }
         if (!empty($this->getFoodData($data)['desc']['cn'])) {
-            $this->food->setCommercialName($this->getFoodData($data)['desc']['cn']);
+            $this->food->getDescription()->setCommercialName($this->getFoodData($data)['desc']['cn']);
         }
         if (!empty($this->getFoodData($data)['desc']['manu'])) {
-            $this->food->setManufacturerName($this->getFoodData($data)['desc']['manu']);
+            $this->food->getDescription()->setManufacturerName($this->getFoodData($data)['desc']['manu']);
         }
         if (!empty($this->getFoodData($data)['desc']['nf'])) {
-            $this->food->setNitrogenToProteinConversionFactor($this->getFoodData($data)['desc']['nf']);
+            $this->food->getDescription()->setNitrogenToProteinConversionFactor($this->getFoodData($data)['desc']['nf']);
         }
         if (!empty($this->getFoodData($data)['desc']['cf'])) {
-            $this->food->setCarbohydrateFactor($this->getFoodData($data)['desc']['cf']);
+            $this->food->getDescription()->setCarbohydrateFactor($this->getFoodData($data)['desc']['cf']);
         }
         if (!empty($this->getFoodData($data)['desc']['ff'])) {
-            $this->food->setFatFactor($this->getFoodData($data)['desc']['ff']);
+            $this->food->getDescription()->setFatFactor($this->getFoodData($data)['desc']['ff']);
         }
         if (!empty($this->getFoodData($data)['desc']['pf'])) {
-            $this->food->setProteinFactor($this->getFoodData($data)['desc']['pf']);
+            $this->food->getDescription()->setProteinFactor($this->getFoodData($data)['desc']['pf']);
         }
     }
 
