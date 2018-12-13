@@ -2,11 +2,11 @@
 
 namespace MOrtola\UsdaFoodComposition\Tests\Serializer;
 
+use MOrtola\UsdaFoodComposition\Model\Food;
 use MOrtola\UsdaFoodComposition\Model\Nutrient;
 use MOrtola\UsdaFoodComposition\Serializer\NutrientNormalizer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Exception\BadMethodCallException;
 
 class NutrientNormalizerTest extends TestCase
 {
@@ -17,13 +17,7 @@ class NutrientNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->normalizer = new NutrientNormalizer();
-    }
-
-    public function testDenormalizeWithoutSettingNutrientFood()
-    {
-        $this->expectException(BadMethodCallException::class);
-        $this->normalizer->denormalize([], Nutrient::class);
+        $this->normalizer = new NutrientNormalizer($this->createMock(Food::class));
     }
 
     public function testHasCacheableSupportsMethod()

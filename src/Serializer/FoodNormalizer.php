@@ -11,111 +11,61 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class FoodNormalizer implements DenormalizerInterface, CacheableSupportsMethodInterface
 {
-    /**
-     * @var SourceNormalizer
-     */
-    private $sourceNormalizer;
-
-    /**
-     * @var NutrientNormalizer
-     */
-    private $nutrientNormalizer;
-
-    /**
-     * @var Food
-     */
-    private $food;
-
-    public function __construct()
-    {
-        $this->sourceNormalizer = new SourceNormalizer();
-        $this->nutrientNormalizer = new NutrientNormalizer();
-    }
-
     public function denormalize($data, $class, $format = null, array $context = []): ?Food
     {
         if (!$this->getFoodData($data)) {
             return null;
         }
 
-        if (!isset($this->getFoodData($data)['desc']['ndbno'], $this->getFoodData($data)['desc']['name'], $this->getFoodData($data)['desc']['ds'])) {
+        $foodDescriptionNormalizer = new FoodDescriptionNormalizer();
+        $foodDescription = $foodDescriptionNormalizer->denormalize($this->getFoodData($data)['desc'], FoodDescription::class);
+
+        if (!$foodDescription) {
             return null;
         }
 
-        $this->food = new Food(
-            new FoodDescription(
-                $this->getFoodData($data)['desc']['ndbno'],
-                $this->getFoodData($data)['desc']['name'],
-                $this->getFoodData($data)['desc']['ds']
-            )
-        );
-
-        $this->setDescription($data);
-        $this->setFoodSources($data);
-        $this->setFoodNutrients($data);
-
-        return $this->food;
+        $food = new Food($foodDescription);
+        $food = $this->withDenormalizedFoodSources($this->getFoodData($data), $food);
+        return $this->withDenormalizedFoodNutrients($this->getFoodData($data), $food);
     }
 
-    private function setFoodNutrients(array $data): void
+    private function withDenormalizedFoodNutrients(array $foodData, Food $food): Food
     {
-        if (isset($this->getFoodData($data)['nutrients'])) {
-            $this->nutrientNormalizer->setFood($this->food);
-            foreach ($this->getFoodData($data)['nutrients'] as $dataNutrient) {
-                if ($nutrient = $this->nutrientNormalizer->denormalize($dataNutrient, Nutrient::class)) {
-                    $this->food->addNutrient($nutrient);
-                }
+        if (empty($foodData['nutrients'])) {
+            return $food;
+        }
+
+        $nutrientNormalizer = new NutrientNormalizer($food);
+
+        foreach ($foodData['nutrients'] as $dataNutrient) {
+            if ($nutrient = $nutrientNormalizer->denormalize($dataNutrient, Nutrient::class)) {
+                $food->addNutrient($nutrient);
             }
         }
+
+        return $food;
     }
 
-    private function setFoodSources(array $data): void
+    private function withDenormalizedFoodSources(array $foodData, Food $food): Food
     {
-        if (isset($this->getFoodData($data)['sources'])) {
-            foreach ($this->getFoodData($data)['sources'] as $dataSource) {
-                if ($source = $this->sourceNormalizer->denormalize($dataSource, Source::class)) {
-                    $this->food->addSource($source);
-                }
+        if (empty($foodData['sources'])) {
+            return $food;
+        }
+
+        $sourceNormalizer = new SourceNormalizer();
+
+        foreach ($foodData['sources'] as $dataSource) {
+            if ($source = $sourceNormalizer->denormalize($dataSource, Source::class)) {
+                $food->addSource($source);
             }
         }
-    }
 
-    private function setDescription(array $data): void
-    {
-        if (!empty($this->getFoodData($data)['desc']['sd'])) {
-            $this->food->getDescription()->setShortDescription($this->getFoodData($data)['desc']['sd']);
-        }
-
-        if (!empty($this->getFoodData($data)['desc']['fg'])) {
-            $this->food->getDescription()->setFoodGroup($this->getFoodData($data)['desc']['fg']);
-        }
-
-        if (!empty($this->getFoodData($data)['desc']['sn'])) {
-            $this->food->getDescription()->setScientificName($this->getFoodData($data)['desc']['sn']);
-        }
-        if (!empty($this->getFoodData($data)['desc']['cn'])) {
-            $this->food->getDescription()->setCommercialName($this->getFoodData($data)['desc']['cn']);
-        }
-        if (!empty($this->getFoodData($data)['desc']['manu'])) {
-            $this->food->getDescription()->setManufacturerName($this->getFoodData($data)['desc']['manu']);
-        }
-        if (!empty($this->getFoodData($data)['desc']['nf'])) {
-            $this->food->getDescription()->setNitrogenToProteinConversionFactor($this->getFoodData($data)['desc']['nf']);
-        }
-        if (!empty($this->getFoodData($data)['desc']['cf'])) {
-            $this->food->getDescription()->setCarbohydrateFactor($this->getFoodData($data)['desc']['cf']);
-        }
-        if (!empty($this->getFoodData($data)['desc']['ff'])) {
-            $this->food->getDescription()->setFatFactor($this->getFoodData($data)['desc']['ff']);
-        }
-        if (!empty($this->getFoodData($data)['desc']['pf'])) {
-            $this->food->getDescription()->setProteinFactor($this->getFoodData($data)['desc']['pf']);
-        }
+        return $food;
     }
 
     private function getFoodData(array $data): ?array
     {
-        if (!isset($data['foods'], $data['foods'][0], $data['foods'][0]['food'])) {
+        if (!isset($data['foods'][0]['food'])) {
             return null;
         }
 

@@ -31,6 +31,18 @@ class FoodApiTest extends TestCase
         Assert::assertEmpty($food);
     }
 
+    public function testGetFoodWithoutNutrients()
+    {
+        $this->mockHandler->append(
+            new Response(200, [], file_get_contents(__DIR__ . '/../fixtures/food_without_nutrients_response.json'))
+        );
+
+        $food = $this->foodApi->get('invent', 'invent');
+
+        Assert::assertNotEmpty($food);
+        Assert::assertNull($food->getEnergy());
+    }
+
     public function testGetRawFood()
     {
         $this->mockHandler->append(

@@ -99,4 +99,9 @@ class Nutrient
     {
         return $this->group;
     }
+
+    public static function isEnergy(int $id): bool
+    {
+        return in_array($id, [208, 268], true);
+    }
 }

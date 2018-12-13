@@ -56,7 +56,7 @@ class Food
 
     private function getNutritient(int $id): ?Nutrient
     {
-        return isset($this->nutrients[$id]) ? $this->nutrients[$id] : null;
+        return $this->nutrients[$id] ?? null;
     }
 
     public function getAlcohol(): ?Nutrient

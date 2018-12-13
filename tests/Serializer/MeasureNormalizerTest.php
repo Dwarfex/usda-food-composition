@@ -9,7 +9,6 @@ use MOrtola\UsdaFoodComposition\Serializer\MeasureNormalizer;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use PhpUnitsOfMeasure\PhysicalQuantity\Mass;
-use Symfony\Component\Serializer\Exception\BadMethodCallException;
 
 class MeasureNormalizerTest extends TestCase
 {
@@ -20,13 +19,7 @@ class MeasureNormalizerTest extends TestCase
 
     public function setUp()
     {
-        $this->normalizer = new MeasureNormalizer();
-    }
-
-    public function testDenormalizeWithoutSettingNutrientFood()
-    {
-        $this->expectException(BadMethodCallException::class);
-        $this->normalizer->denormalize([], Measure::class);
+        $this->normalizer = new MeasureNormalizer($this->createMock(Nutrient::class));
     }
 
     public function testDenormalizeWithoutRequiredAttributes()
@@ -35,7 +28,7 @@ class MeasureNormalizerTest extends TestCase
             'label' => 'Fake label',
         ];
 
-        $this->normalizer->setNutrient(
+        $this->normalizer = new MeasureNormalizer(
             new Nutrient('123', 'Fake name', '', '', new Quantity(new Mass(1, 'g')))
         );
 

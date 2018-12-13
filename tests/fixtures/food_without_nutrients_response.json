@@ -1,0 +1,26 @@
+{
+  "foods": [
+    {
+      "food": {
+        "sr": "July, 2018",
+        "type": "b",
+        "desc": {
+          "ndbno": "45156252",
+          "name": "ABBA-ZABA, SNACK SIZE BITES CANDY, UPC: 070602609000",
+          "ds": "Label Insight",
+          "manu": "Annabelle Candy Co., Inc.",
+          "ru": "g",
+          "cn": "family style, applebees"
+        },
+        "ing": {
+          "desc": "CORN SYRUP, SUGAR, PEANUT FILLING",
+          "upd": "09/01/2017"
+        },
+        "footnotes": []
+      }
+    }
+  ],
+  "count": 1,
+  "notfound": 0,
+  "api": 2.0
+}

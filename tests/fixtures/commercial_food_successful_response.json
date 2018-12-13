@@ -23,16 +23,7 @@
             "derivation": "LCCS",
             "group": "Proximates",
             "unit": "kcal",
-            "value": "400",
-            "measures": [
-              {
-                "label": "PIECES",
-                "eqv": 40.0,
-                "eunit": "g",
-                "qty": 10.0,
-                "value": "160"
-              }
-            ]
+            "value": "400"
           },
           {
             "nutrient_id": "203",
