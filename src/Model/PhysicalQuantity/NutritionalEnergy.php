@@ -8,6 +8,8 @@ use PhpUnitsOfMeasure\UnitOfMeasure;
 
 class NutritionalEnergy extends Energy implements PhysicalQuantityInterface
 {
+    protected static $unitDefinitions;
+
     /**
      * @throws \PhpUnitsOfMeasure\Exception\DuplicateUnitNameOrAlias
      * @throws \PhpUnitsOfMeasure\Exception\NonStringUnitName
@@ -25,7 +27,6 @@ class NutritionalEnergy extends Energy implements PhysicalQuantityInterface
                 return $valueInThisUnit * 4184;
             }
         );
-        $kcal->addAlias('kcal');
         if (!static::unitNameOrAliasesAlreadyRegistered($kcal)) {
             static::addUnit($kcal);
         }
